@@ -1,0 +1,30 @@
+﻿<!--
+Пример к статье: http://www.softez.pp.ua/2014/05/10/listbox-with-progressbar-wpf-csharp/
+Автор: dredei
+-->
+<Window x:Class="ListBoxWithProgressBar.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ListBoxWithProgressBar" Height="203" Width="297" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Closing="Window_Closing">
+    <Grid>
+        <ListBox x:Name="LbActions" HorizontalAlignment="Left" Height="125" Margin="10,10,0,0" VerticalAlignment="Top" Width="265" HorizontalContentAlignment="Stretch">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <!-- Создаем грид с двемя колонками -->
+                    <Grid Margin="0,2" Background="{Binding BackColor}">
+                        <!-- Длина второй колонки равна 100 пикселям, а первой - оставшаяся длина -->
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Title}" />
+                        <ProgressBar Name="PbStatus"  Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding Progress}"/>
+                        <!-- Добавляем блок с текстом на ProgressBar для отображения процентов -->
+                        <TextBlock Grid.Column="1" Text="{Binding ElementName=PbStatus, Path=Value, StringFormat={}{0:0}%}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <Button x:Name="BtnStart" Content="Start" HorizontalAlignment="Left" Margin="10,140,0,0" VerticalAlignment="Top" Width="265" Cursor="Hand" Click="BtnStart_Click"/>
+    </Grid>
+</Window>
